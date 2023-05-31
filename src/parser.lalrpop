@@ -1,0 +1,8 @@
+use crate::frontend::ast::Node;
+
+grammar;
+
+pub Exofork: Vec<Node> = {
+    "" => Vec::new()
+}
+

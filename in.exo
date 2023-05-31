@@ -1,0 +1,4 @@
+func main() {
+    let a: String = "Hello World!";
+    println(a);
+}
