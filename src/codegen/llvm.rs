@@ -1,6 +1,12 @@
 use std::path::Path;
 
-use inkwell::{context::Context, module::Module, builder::Builder, targets::{Target, TargetMachine, FileType, CodeModel, RelocMode, InitializationConfig}, OptimizationLevel};
+use inkwell::{
+    builder::Builder,
+    context::Context,
+    module::Module,
+    targets::{CodeModel, FileType, InitializationConfig, RelocMode, Target, TargetMachine},
+    OptimizationLevel,
+};
 
 pub fn compile(typed_ast: (), path: &Path) {
     Codegen::compile(typed_ast, path)
@@ -20,7 +26,7 @@ impl<'ctx> Codegen<'ctx> {
         let mut codegen = Codegen {
             context: &context,
             module,
-            builder
+            builder,
         };
         codegen.compile_ast(ast);
         codegen.write(path);
@@ -38,19 +44,19 @@ impl<'ctx> Codegen<'ctx> {
         let opt = OptimizationLevel::Aggressive;
         let target_machine = target
             .create_target_machine(
-                &triple, 
-                cpu.to_str().unwrap(), 
-                features.to_str().unwrap(), 
-                opt, 
+                &triple,
+                cpu.to_str().unwrap(),
+                features.to_str().unwrap(),
+                opt,
                 reloc,
-                model
+                model,
             )
             .unwrap();
-        
-        target_machine.write_to_file(&self.module, FileType::Object, path).unwrap();
+
+        target_machine
+            .write_to_file(&self.module, FileType::Object, path)
+            .unwrap();
     }
 
-    fn compile_ast(&mut self, ast: ()) {
-
-    }
+    fn compile_ast(&mut self, ast: ()) {}
 }
