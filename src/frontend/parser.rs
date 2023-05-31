@@ -2,9 +2,9 @@ lalrpop_mod!(parser);
 
 use std::process::exit;
 
-use super::ast::Node;
+use super::ast::Toplvl;
 
-pub fn parse(src: &String) -> Vec<Node> {
+pub fn parse(src: &String) -> Vec<Toplvl> {
     let parse_res = parser::ExoforkParser::new().parse(src);
     match parse_res {
         Ok(nodes) => nodes,

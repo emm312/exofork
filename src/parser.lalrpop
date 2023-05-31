@@ -1,8 +1,8 @@
-use crate::frontend::ast::Node;
+use crate::frontend::ast::Toplvl;
 
 grammar;
 
-pub Exofork: Vec<Node> = {
-    "" => Vec::new()
+pub Exofork: Vec<Toplvl> = {
+    "hello" => Vec::new()
 }
 

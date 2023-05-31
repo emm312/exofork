@@ -1,5 +1,6 @@
 pub type Name = String;
 
+#[derive(Debug, Clone)]
 pub enum Bop {
   Add, Sub, Mul, And, Or
 }
@@ -7,24 +8,25 @@ pub enum Bop {
 type Args = Vec<Expr>;
 type TypArgs = Vec<Type>;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone)]
 pub enum Expr {
   IntLit(i32),
   BoolLit(bool),
   StrLit(String),
-  BinOp(Rc<Expr>, Bop, Rc<Expr>),
+  BinOp(Box<Expr>, Bop, Box<Expr>),
   Var(Name),
-  FuncCall(Option<Expr>, Name, Option<TypArgs>, Args), // optional callee
+  FuncCall(Option<Box<Expr>>, Name, Option<TypArgs>, Args), // optional callee
 }
 
+#[derive(Debug, Clone)]
 pub enum PreType {
   I32,
   Bool,
   String,
-  List(Rc<Type>),
+  List(Box<Type>),
 }
-pub enum Muty { Mut, Immut }
-pub type Type = (Muty, PreType);
+
+pub type Type = (bool, PreType);
 
 pub enum Stmt {
   Let(Name, Option<Type>, Expr),
@@ -40,6 +42,7 @@ pub enum Body {
 type Params = Vec<(Name, Option<Type>)>;
 type TypParams = Vec<Name>;
 type Ctors = Vec<(Name, Vec<Type>)>;
+
 pub enum Toplvl {
   Func(Name, TypParams, Params, Body),
   Enum(Name, TypParams, Ctors),

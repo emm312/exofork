@@ -1,7 +1,7 @@
-use std::fs::read_to_string;
+use std::{fs::read_to_string, path::Path};
 
 use clap::Parser;
-use exofork::frontend::parser::parse;
+use exofork::{frontend::parser::parse, codegen};
 
 #[derive(Parser)]
 struct Args {
@@ -17,4 +17,6 @@ fn main() {
     let src = read_to_string(args.input_file).unwrap();
 
     let ast = parse(&src);
+
+    codegen::llvm::compile((), &Path::new(&args.output_file));
 }

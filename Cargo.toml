@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 clap = { version="4.3.0", features=["derive"] }
-inkwell = { version="0.2.0", features=["llvm15-0"] }
+inkwell = { version="0.2.0", features=["llvm16-0"] }
 lalrpop-util = { version = "0.19.6", features=["lexer"] }
 
 [build-dependencies]
